@@ -1,0 +1,38 @@
+{
+  "name": "ava",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "tsc && node ./dist/index.js",
+    "dev": "tsc-watch --onSuccess \"node dist/index.js\""
+  },
+  "keywords": [
+    "typescript",
+    "sern",
+    "discord.js"
+  ],
+  "type": "module",
+  "imports": {
+    "#plugins": "./dist/plugins/index.js"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@discordjs/opus": "^0.9.0",
+    "@discordjs/voice": "^0.14.0",
+    "@sern/handler": "^1.0.0",
+    "discord.js": "^14.2.0",
+    "dotenv": "^16.0.3",
+    "got": "^12.5.3",
+    "libsodium-wrappers": "^0.7.10"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.25",
+    "prettier": "^2.8.1",
+    "prisma": "^4.7.1",
+    "tsc-watch": "^6.0.0",
+    "typescript": "^4.9.4"
+  }
+}
