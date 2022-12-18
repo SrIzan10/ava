@@ -9,3 +9,10 @@ datasource db {
   provider = "mongodb"
   url      = env("MONGODB")
 }
+
+model stick {
+  id String @id @map("_id") @default(uuid())
+  guildid String
+  channelid String
+  radio String
+}

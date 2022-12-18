@@ -5,8 +5,13 @@ import {
 	createAudioResource,
 	joinVoiceChannel,
 } from '@discordjs/voice';
-import { ApplicationCommandOptionType, EmbedBuilder, GuildMember } from 'discord.js';
+import {
+	ApplicationCommandOptionType,
+	EmbedBuilder,
+	GuildMember,
+} from 'discord.js';
 import got from 'got';
+import { radioResolver } from '../util/radioResolver.js';
 
 export default commandModule({
 	type: CommandType.Slash,
@@ -28,76 +33,92 @@ export default commandModule({
 						choice.startsWith(focusedValue)
 					);
 					await ctx.respond(
-						filtered.map((choice) => ({ name: choice, value: choice }))
+						filtered.map((choice) => ({
+							name: choice,
+							value: choice,
+						}))
 					);
 				},
 			},
 		},
 	],
 	execute: async (ctx, options) => {
-        const radioname = options[1].getString('radio', true);
-        const fetchUser = await (await ctx.client.guilds.fetch(ctx.guild.id)).members.fetch(ctx.user.id) as GuildMember
+		const radioname = options[1].getString('radio', true);
+		const fetchUser = (await (
+			await ctx.client.guilds.fetch(ctx.guild.id)
+		).members.fetch(ctx.user.id)) as GuildMember;
 
-		if (!fetchUser.voice.channel?.id) 
-            return await ctx.reply({
-                content: 'You are not in a VC!',
-                ephemeral: true
-            })
-        if (!fetchUser.voice.channel!.joinable)
-            return await ctx.reply({
-                content: 'I can\'t join that VC!',
-                ephemeral: true
-            })
-        
+		if (!fetchUser.voice.channel?.id)
+			return await ctx.reply({
+				content: 'You are not in a VC!',
+				ephemeral: true,
+			});
+		if (!fetchUser.voice.channel!.joinable)
+			return await ctx.reply({
+				content: "I can't join that VC!",
+				ephemeral: true,
+			});
 
-        const embed = new EmbedBuilder()
-            .setAuthor({name: ctx.user.username, iconURL: ctx.user.displayAvatarURL()})
-            .setColor('Green')
-            .setTitle(`Started playing ${radioname} in ${fetchUser.voice.channel?.name}`)
-            .setDescription(`Go ahead and join <#${fetchUser.voice.channelId}> to listen ${radioname}!`)
-        const embedNotFound = new EmbedBuilder()
-            .setAuthor({name: ctx.user.username, iconURL: ctx.user.displayAvatarURL()})
-            .setColor('Red')
-            .setTitle(`Radio not found.`)
-            .setDescription(`Make sure you select the radio from the autocomplete!`)
+		const embed = new EmbedBuilder()
+			.setAuthor({
+				name: ctx.user.username,
+				iconURL: ctx.user.displayAvatarURL(),
+			})
+			.setColor('Green')
+			.setTitle(
+				`Started playing ${radioname} in ${fetchUser.voice.channel?.name}`
+			)
+			.setDescription(
+				`Go ahead and join <#${fetchUser.voice.channelId}> to listen ${radioname}!`
+			);
+		const embedNotFound = new EmbedBuilder()
+			.setAuthor({
+				name: ctx.user.username,
+				iconURL: ctx.user.displayAvatarURL(),
+			})
+			.setColor('Red')
+			.setTitle(`Radio not found.`)
+			.setDescription(
+				`Make sure you select the radio from the autocomplete!`
+			);
 		switch (radioname) {
 			case 'KNGI':
 				{
-                    const stream = got.stream('https://network.kngi.org/radio/8000/stream')
-                    const connection = joinVoiceChannel({
-                        adapterCreator: ctx.interaction.guild!
-                            .voiceAdapterCreator,
-                        guildId: ctx.guild.id,
-                        channelId: fetchUser.voice.channelId!
-                    });
-                    const resource = createAudioResource(stream);
-                    const player = createAudioPlayer();
-                    connection.subscribe(player);
-                    player.play(resource);
-                    await ctx.reply({embeds: [embed]})
+					const stream = got.stream(radioResolver(radioname));
+					const connection = joinVoiceChannel({
+						adapterCreator:
+							ctx.interaction.guild!.voiceAdapterCreator,
+						guildId: ctx.guild.id,
+						channelId: fetchUser.voice.channelId!,
+					});
+					const resource = createAudioResource(stream);
+					const player = createAudioPlayer();
+					connection.subscribe(player);
+					player.play(resource);
+					await ctx.reply({ embeds: [embed] });
 				}
 				break;
 			case 'Gensokyo Radio':
 				{
-                    const stream = got.stream('https://stream.gensokyoradio.net/1')
-                    const connection = joinVoiceChannel({
-                        adapterCreator: ctx.interaction.guild!
-                            .voiceAdapterCreator,
-                        guildId: ctx.guild.id,
-                        channelId: fetchUser.voice.channelId!
-                    });
-                    const resource = createAudioResource(stream);
-                    const player = createAudioPlayer();
-                    connection.subscribe(player);
-                    player.play(resource);
-                    await ctx.reply({embeds: [embed]}) 
+					const stream = got.stream(radioResolver(radioname));
+					const connection = joinVoiceChannel({
+						adapterCreator:
+							ctx.interaction.guild!.voiceAdapterCreator,
+						guildId: ctx.guild.id,
+						channelId: fetchUser.voice.channelId!,
+					});
+					const resource = createAudioResource(stream);
+					const player = createAudioPlayer();
+					connection.subscribe(player);
+					player.play(resource);
+					await ctx.reply({ embeds: [embed] });
 				}
 				break;
-            default: 
-                {
-                    await ctx.reply({embeds: [embedNotFound]})
-                }
-                break;
+			default:
+				{
+					await ctx.reply({ embeds: [embedNotFound] });
+				}
+				break;
 		}
 	},
 });
