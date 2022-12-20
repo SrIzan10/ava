@@ -33,6 +33,16 @@ export default commandModule({
 		const radioname = options[1].getString('radio', true);
         const fetchUser = await (await ctx.client.guilds.fetch(ctx.guild.id)).members.fetch(ctx.user.id) as GuildMember
 
+		async function createDoc(radio: string) {
+			return await prisma.stick.create({
+				data: {
+					channelid: fetchUser.voice.channel?.id!,
+					guildid: ctx.guild.id,
+					radio: radio
+				}
+			})
+		}
+
 		if (!fetchUser.voice.channel?.id) 
             return await ctx.reply({
                 content: 'You are not in a VC!',
@@ -43,7 +53,18 @@ export default commandModule({
                 content: 'I can\'t join that VC!',
                 ephemeral: true
             })
-		
+
+		const countDocs = await prisma.stick.count({
+			where: {
+				guildid: ctx.guild.id
+			}
+		})
+		if (countDocs !== 0)
+			return await ctx.reply({
+				content: 'There\'s more than one entry in the database!\nIf you want to remove that stick, first run the `/unstick` command!',
+				ephemeral: true
+			})
+			
 		switch (radioname) {
 			case 'KNGI': {
 				await createDoc(radioname)
@@ -56,15 +77,6 @@ export default commandModule({
 			default: {
 				await ctx.reply({content: `Couldn't find that radio!`, ephemeral: true})
 			} break;
-		}
-		async function createDoc(radio: string) {
-			return await prisma.stick.create({
-				data: {
-					channelid: fetchUser.voice.channel?.id!,
-					guildid: ctx.guild.id,
-					radio: radio
-				}
-			})
 		}
 	},
 });
