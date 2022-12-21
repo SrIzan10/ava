@@ -80,12 +80,49 @@ export default commandModule({
 			.setFooter({text: `Total listeners: ${nowplayingkngi.station.mounts[0].listeners.total}`})
 		const gensokyoembed = new EmbedBuilder()
 			.setAuthor({
-				iconURL: 'https://img.srizan.ml/gensokyo-removebg.png',
+				iconURL: 'https://raw.githubusercontent.com/SrIzan10/ava/main/util/logos/gensokyoradio.png',
 				name: 'Gensokyo Radio'
 			})
 			.setColor('Random')
 			.setTitle('Now playing on Gensokyo Radio')
 			.setThumbnail(`https://gensokyoradio.net/images/albums/500/${nowplayingensokyo.MISC.ALBUMART}`)
+			.setFields(
+				{
+					name: 'Name',
+					value: nowplayingensokyo.SONGINFO.TITLE,
+					inline: true
+				},
+				{
+					name: 'Artist',
+					value: nowplayingensokyo.SONGINFO.ARTIST,
+					inline: true
+				},
+				{
+					name: '\u200B',
+					value: '\u200B',
+					inline: true
+				},
+				{
+					name: 'Rating',
+					value: nowplayingensokyo.SONGDATA.RATING,
+					inline: true
+				},
+				{
+					name: 'Times rated',
+					value: String(nowplayingensokyo.SONGDATA.TIMESRATED),
+					inline: true
+				},
+				{
+					name: '\u200B',
+					value: '\u200B',
+					inline: true
+				},
+				{
+					name: 'Progressbar',
+					value: (progressbar.splitBar(nowplayingensokyo.SONGTIMES.DURATION, nowplayingensokyo.SONGTIMES.PLAYED, 20))[0]
+				}
+			)
+			.setFooter({text: `Total listeners: ${nowplayingensokyo.SERVERINFO.LISTENERS}`})
 		
 		const msg = await ctx.reply({embeds: [kngiembed], components: [selectMenu]})
 		const collector = msg.createMessageComponentCollector({time: 30_000, componentType: ComponentType.StringSelect})
