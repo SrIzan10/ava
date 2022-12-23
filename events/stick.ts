@@ -1,5 +1,4 @@
 import { joinVoiceChannel, createAudioResource, createAudioPlayer } from '@discordjs/voice';
-import type { stick } from '@prisma/client';
 import { EventType, eventModule } from '@sern/handler';
 import type { Client, VoiceChannel } from 'discord.js';
 import got from 'got';
