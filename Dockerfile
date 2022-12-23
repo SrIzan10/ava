@@ -6,6 +6,8 @@ COPY package.json ./
 
 RUN npm install
 
+RUN apt update && apt install ffmpeg
+
 COPY . .
 
 RUN npm run generateprisma
