@@ -1,4 +1,5 @@
 import { joinVoiceChannel, createAudioResource, createAudioPlayer } from '@discordjs/voice';
+import type { stick } from '@prisma/client';
 import { EventType, eventModule } from '@sern/handler';
 import type { Client, VoiceChannel } from 'discord.js';
 import got from 'got';
@@ -10,7 +11,7 @@ export default eventModule({
 	name: 'ready',
 	execute: async (client: Client) => {
 		const documents = await prisma.stick.findMany();
-		documents.forEach(async (document) => {
+		documents.forEach(async (document: stick) => {
             const fetchguild = await client.guilds.fetch(document.guildid);
 			try {
 				await fetchguild.channels.fetch(document.channelid) as VoiceChannel
