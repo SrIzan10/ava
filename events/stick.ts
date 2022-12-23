@@ -11,7 +11,7 @@ export default eventModule({
 	execute: async (client: Client) => {
 		const documents = await prisma.stick.findMany();
 		documents.forEach(async (document) => {
-            const fetchguild = await client.guilds.fetch(document.guildid);
+			const fetchguild = await client.guilds.fetch(document.guildid);
 			try {
 				await fetchguild.channels.fetch(document.channelid) as VoiceChannel
 			} catch {
