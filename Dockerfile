@@ -1,10 +1,8 @@
-FROM node:lts-alpine
+FROM node:latest
 
 WORKDIR /app
 
 COPY package.json ./
-
-RUN apk add --update --no-cache openssl1.1-compat
 
 RUN npm install
 
