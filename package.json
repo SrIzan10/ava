@@ -17,7 +17,7 @@
   ],
   "type": "module",
   "imports": {
-    "#plugins": "./plugins/index.js"
+    "#plugins": "./dist/plugins/index.js"
   },
   "license": "UNLICENSED",
   "dependencies": {

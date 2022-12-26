@@ -14,7 +14,7 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "paths": {
-      "#plugins": ["./plugins/index.js"]
+      "#plugins": ["./dist/plugins/index.js"]
     }
   }
 }
