@@ -12,6 +12,9 @@
     "importsNotUsedAsValues": "error",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "paths": {
+      "#plugins": ["./plugins/index.js"]
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { commandModule, CommandType } from '@sern/handler';
-import { publish } from '../plugins/index.js';
+import { publish } from '#plugins';
 import {
 	createAudioPlayer,
 	createAudioResource,

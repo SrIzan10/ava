@@ -1,7 +1,7 @@
 import { commandModule, CommandType } from '@sern/handler';
 import { ApplicationCommandOptionType, GuildMember } from 'discord.js';
 import { prisma } from '../index.js';
-import { publish } from '../plugins/index.js';
+import { publish } from '#plugins';
 
 export default commandModule({
 	type: CommandType.Slash,
