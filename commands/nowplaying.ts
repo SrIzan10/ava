@@ -1,5 +1,5 @@
 import { commandModule, CommandType } from '@sern/handler';
-import { publish } from '#plugins';
+import { publish } from '../plugins/index.js';
 import { ActionRowBuilder, ComponentType, EmbedBuilder, StringSelectMenuBuilder } from 'discord.js';
 import axios from 'axios';
 import progressbar from 'string-progressbar'

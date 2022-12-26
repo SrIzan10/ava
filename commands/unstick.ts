@@ -1,5 +1,5 @@
 import { commandModule, CommandType } from '@sern/handler';
-import { publish } from '#plugins';
+import { publish } from '../plugins/index.js';
 import { prisma } from '../index.js';
 import { getVoiceConnection } from '@discordjs/voice'
 
