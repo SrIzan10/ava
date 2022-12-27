@@ -6,7 +6,7 @@ COPY package.json ./
 
 RUN npm install
 
-RUN apt update && apt install ffmpeg
+RUN apt update && apt install ffmpeg -y
 
 COPY . .
 
