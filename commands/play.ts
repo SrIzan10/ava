@@ -1,5 +1,5 @@
 import { commandModule, CommandType } from '@sern/handler';
-import { publish } from '../plugins/index.js';
+import { publish } from '../plugins/publish.js';
 import {
 	createAudioPlayer,
 	createAudioResource,
@@ -45,7 +45,7 @@ export default commandModule({
 	execute: async (ctx, options) => {
 		const radioname = options[1].getString('radio', true);
 		const fetchUser = (await (
-			await ctx.client.guilds.fetch(ctx.guild.id)
+			await ctx.client.guilds.fetch(ctx.guild!.id)
 		).members.fetch(ctx.user.id)) as GuildMember;
 
 		if (!fetchUser.voice.channel?.id)
@@ -88,7 +88,7 @@ export default commandModule({
 					const connection = joinVoiceChannel({
 						adapterCreator:
 							ctx.interaction.guild!.voiceAdapterCreator,
-						guildId: ctx.guild.id,
+						guildId: ctx.guild!.id,
 						channelId: fetchUser.voice.channelId!,
 					});
 					const resource = createAudioResource(stream);
@@ -104,7 +104,7 @@ export default commandModule({
 					const connection = joinVoiceChannel({
 						adapterCreator:
 							ctx.interaction.guild!.voiceAdapterCreator,
-						guildId: ctx.guild.id,
+						guildId: ctx.guild!.id,
 						channelId: fetchUser.voice.channelId!,
 					});
 					const resource = createAudioResource(stream);

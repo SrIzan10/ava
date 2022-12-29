@@ -1,5 +1,5 @@
 import { commandModule, CommandType } from '@sern/handler';
-import { publish } from '../plugins/index.js';
+import { publish } from '../plugins/publish.js';
 import { prisma } from '../index.js';
 import { getVoiceConnection } from '@discordjs/voice'
 
@@ -11,7 +11,7 @@ export default commandModule({
     execute: async (ctx, options) => {
         const countDocs = await prisma.stick.count({
 			where: {
-				guildid: ctx.guild.id
+				guildid: ctx.guild!.id
 			}
 		})
 		if (countDocs === 0)
@@ -22,10 +22,10 @@ export default commandModule({
         
         await prisma.stick.deleteMany({
             where: {
-                guildid: ctx.guild.id
+                guildid: ctx.guild!.id
             }
         })
-        const connection = getVoiceConnection(ctx.guild.id)
+        const connection = getVoiceConnection(ctx.guild!.id)
         connection!.destroy()
 
         await ctx.reply({

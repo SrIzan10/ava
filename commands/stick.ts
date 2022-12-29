@@ -1,7 +1,7 @@
 import { commandModule, CommandType } from '@sern/handler';
 import { ApplicationCommandOptionType, GuildMember } from 'discord.js';
 import { prisma } from '../index.js';
-import { publish } from '../plugins/index.js';
+import { publish } from '../plugins/publish.js';
 
 export default commandModule({
 	type: CommandType.Slash,
@@ -31,13 +31,13 @@ export default commandModule({
 	],
 	execute: async (ctx, options) => {
 		const radioname = options[1].getString('radio', true);
-        const fetchUser = await (await ctx.client.guilds.fetch(ctx.guild.id)).members.fetch(ctx.user.id) as GuildMember
+        const fetchUser = await (await ctx.client.guilds.fetch(ctx.guild!.id)).members.fetch(ctx.user.id) as GuildMember
 
 		async function createDoc(radio: string) {
 			return await prisma.stick.create({
 				data: {
 					channelid: fetchUser.voice.channel?.id!,
-					guildid: ctx.guild.id,
+					guildid: ctx.guild!.id,
 					radio: radio
 				}
 			})
@@ -56,7 +56,7 @@ export default commandModule({
 
 		const countDocs = await prisma.stick.count({
 			where: {
-				guildid: ctx.guild.id
+				guildid: ctx.guild!.id
 			}
 		})
 		if (countDocs !== 0)

@@ -107,11 +107,12 @@
   resolved "https://registry.npmjs.org/@sapphire/snowflake/-/snowflake-3.3.0.tgz"
   integrity sha512-Hec5N6zEkZuZFLybVKyLFLlcSgYmR6C1/+9NkIhxPwOf6tgX52ndJCSz8ADejmbrNE0VuNCNkpzhRZzenEC9vA==
 
-"@sern/handler@^1.0.0":
-  version "1.2.1"
-  resolved "https://registry.npmjs.org/@sern/handler/-/handler-1.2.1.tgz"
-  integrity sha512-ElXlJC/tS5T++QCUCXw1uCCfMu4sVSg6UN6uD+Y9TigynpQsFpzHAKuOtyQwUcwIBbiB+NZ2xAbOiyVy0YpPvw==
+"@sern/handler@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@sern/handler/-/handler-2.0.0.tgz#06229074b810349588973b6a4714e624d081d09d"
+  integrity sha512-i9BbUxwOYX1rn1FUfVFT+c8ltAloEfIMUznOt2T4h1xbWyXm/aKocmcgt5DkBHRU8yGoCfDiFF3E3I1mHln3UQ==
   dependencies:
+    iti "^0.5.0"
     rxjs "^7.5.6"
     ts-pattern "^4.0.2"
     ts-results-es "^3.5.0"
@@ -505,6 +506,13 @@ isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
+
+iti@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/iti/-/iti-0.5.0.tgz#fb7bcd32f60d71d9232e8b936608025f2ce106f7"
+  integrity sha512-ZiwdEIhXAxyb6/+j2didONRa3q73y9h8oHMRXAIkXv7k851cm8H7fyZZyszr514TdzgoVQl7Z6hvsdTogjgc0w==
+  dependencies:
+    utility-types "^3.10.0"
 
 json-buffer@3.0.1:
   version "3.0.1"
@@ -954,6 +962,11 @@ util-deprecate@^1.0.1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
+
+utility-types@^3.10.0:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/utility-types/-/utility-types-3.10.0.tgz#ea4148f9a741015f05ed74fd615e1d20e6bed82b"
+  integrity sha512-O11mqxmi7wMKCo6HKFt5AhO4BwY3VV68YU07tgxfz8zJTIxr4BpsezN49Ffwy9j3ZpwwJp4fkRwjRzq3uWE6Rg==
 
 webidl-conversions@^3.0.0:
   version "3.0.1"
